@@ -1,5 +1,5 @@
 {
-  "name": "supercrud",
+  "name": "supercrudgen",
   "version": "1.0.0",
   "description": "CRUD GENERATION TOOL",
   "main": "app.js",
@@ -21,6 +21,6 @@
     "mysql": "^2.16.0"
   },
   "bin":{
-	"supercrud":"./app.js"
+	"supercrudgen":"./app.js"
   }
 }
