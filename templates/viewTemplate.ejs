@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<title>{tableName} CRUD</title>
+<link rel="stylesheet" href="/static/style.css">
+<body>
+	<h1>{tableName}</h1>
+	<%for(var i=0;i<rows.length;i++){%>
+		<%for(var j=0;j<columnsName.length;j++){%>
+			<h3 style="display:inline-block;"><%=columnsName[j]%>=<%=rows[i][columnsName[j]]%></h3>
+		<%}%>
+			<button id="deleteButton<%=rows[i].id%>"onClick="deleteButton(event)" class="deleteButton button">Delete</button>
+			<button id="updateButtonPreview<%=rows[i].id%>"onClick="updatePreview(event)" class="updateButton button">Update</button>
+			<div id="updateDiv<%=rows[i].id%>" class="updateDiv">
+				<form>
+					<%for(var j=0;j<columnsName.length;j++){%>
+						<!--feh error hna hyegy f elmost2bl :"-->
+						<%if(columnsName[j]!="id"){%>
+						<input id="<%=columnsName[j]%><%=rows[i].id%>" value="<%=rows[i][columnsName[j]]%>"/>
+						<%}else{%>
+				<input id="<%=columnsName[j]%><%=rows[i].id%>" style="display:none;" value="<%=rows[i][columnsName[j]]%>"/>
+						<%}%>
+					<%}%>
+					
+				<button id="updateButton<%=rows[i].id%>"onClick="return updateButton(event)" class="updateButton button">Update</button>
+				</form>
+	
+			</div>
+		<br>
+	<%}%>
+	<button onClick="insertPreview()" class="button">Insert</button>
+	<div id="insert" style="display:none;">
+		<form>
+		<%for(var i=0;i<columnsName.length;i++){%>
+			<%if(columnsName[i]!="id"){%>
+				<input id="<%=columnsName[i]%>" placeholder="<%=columnsName[i]%>"/>
+			<%}%>
+		<%}%>
+		<button onClick="return insert();" class="button">Insert</button>
+		<form>
+	</div>
+<script src="/static/frontendlib.js"></script>
+<script>
+function deleteButton(e){
+	var id=e.target.id.slice(12,e.target.id.length);
+	ajaxRequest("{tableName}/delete","POST","application/json",{id:id},(res)=>{
+		if(res=="true"){
+			alert("Deleted successfully.");}
+		else{
+			alert("Failed.");
+		}
+	});
+}
+function updatePreview(e){
+	var id=e.target.id.slice(19,e.target.id.length);
+	var button=document.getElementById(e.target.id);
+	var updateDiv=document.getElementById("updateDiv"+id);
+	if(button.innerHTML=="Update"){
+		button.innerHTML="Close";
+		updateDiv.style.display="block";
+		}
+	else{
+		button.innerHTML="Update";
+		updateDiv.style.display="none";}
+
+
+}
+function updateButton(e){
+	var id=e.target.id.slice(12,e.target.id.length);
+	var jsonObject={};
+	var column;
+	<%for(var i=0;i<columnsName.length;i++){%>
+		column=document.getElementById("<%=columnsName[i]%>"+id).value;
+		jsonObject.<%=columnsName[i]%>=column;
+	<%}%>
+	ajaxRequest("{tableName}/update","POST","application/json",jsonObject,(res)=>{
+		if(res=="true"){
+			alert("Updated successfully.");}
+		else{
+			alert("Failed.");
+		}
+	});
+	return false;
+}
+function insert(){
+	var jsonObject={};
+	var column;
+	<%for(var i=0;i<columnsName.length;i++){%>
+		<%if(columnsName[i]!="id"){%>
+			column=document.getElementById("<%=columnsName[i]%>").value;
+			jsonObject.<%=columnsName[i]%>=column;
+		<%}%>
+	<%}%>
+	ajaxRequest("{tableName}/insert","POST","application/json",jsonObject,(res)=>{
+		if(res=="true"){
+			alert("Inserted successfully.");}
+		else{
+			alert("Failed.");
+		}
+	});
+	return false;
+}
+function insertPreview(){
+	var div=document.getElementById("insert");
+	var button=document.getElementById("insertButton");
+	if(div.style.display=="none"){
+		div.style.display="block";
+		button.innerHTML="Close";
+		button.style.background="#f00";
+	}
+	else{
+		div.style.display="none";
+		button.innerHTML="Insert";
+		button.style.background="#2E6912";
+	}
+
+}
+</script>
+</body>
+</html>

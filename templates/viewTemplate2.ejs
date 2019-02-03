@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<title>{tableName} CRUD</title>
+<link rel="stylesheet" href="/static/style.css">
+<body>
+	<h1>{tableName}</h1>
+		<%for(var j=0;j<columnsName.length;j++){%>
+			<h3 style="display:inline-block;"><%=columnsName[j]%>=<%=rows[0][columnsName[j]]%></h3>
+		<%}%>
+			<button id="deleteButton<%=rows[0].id%>"onClick="deleteButton(event)" class="deleteButton button">Delete</button>
+			<button id="updateButtonPreview<%=rows[0].id%>"onClick="updatePreview(event)" class="updateButton button">Update</button>
+			<div id="updateDiv<%=rows[0].id%>" class="updateDiv">
+				<form>
+					<%for(var j=0;j<columnsName.length;j++){%>
+						<!--feh error hna hyegy f elmost2bl :"-->
+						<%if(columnsName[j]!="id"){%>
+						<input id="<%=columnsName[j]%><%=rows[0].id%>" value="<%=rows[0][columnsName[j]]%>"/>
+						<%}else{%>
+				<input id="<%=columnsName[j]%><%=rows[0].id%>" style="display:none;" value="<%=rows[0][columnsName[j]]%>"/>
+						<%}%>
+					<%}%>
+					
+				<button id="updateButton<%=rows[0].id%>"onClick="return updateButton(event)" class="updateButton button">Update</button>
+				</form>
+	
+			</div>
+<script src="/static/frontendlib.js"></script>
+<script>
+function deleteButton(e){
+	var id=e.target.id.slice(12,e.target.id.length);
+	ajaxRequest("delete","POST","application/json",{id:id},(res)=>{
+		if(res=="true"){
+			alert("Deleted successfully.");}
+		else{
+			alert("Failed.");
+		}
+	});
+}
+function updatePreview(e){
+	var id=e.target.id.slice(19,e.target.id.length);
+	var button=document.getElementById(e.target.id);
+	var updateDiv=document.getElementById("updateDiv"+id);
+	if(button.innerHTML=="Update"){
+		button.innerHTML="Close";
+		updateDiv.style.display="block";
+		}
+	else{
+		button.innerHTML="Update";
+		updateDiv.style.display="none";}
+}
+function updateButton(e){
+	var id=e.target.id.slice(12,e.target.id.length);
+	var jsonObject={};
+	var column;
+	<%for(var i=0;i<columnsName.length;i++){%>
+		column=document.getElementById("<%=columnsName[i]%>"+id).value;
+		jsonObject.<%=columnsName[i]%>=column;
+	<%}%>
+	ajaxRequest("update","POST","application/json",jsonObject,(res)=>{
+		if(res=="true"){
+			alert("Updated successfully.");}
+		else{
+			alert("Failed.");
+		}
+	});
+	return false;
+}
+
+</script>
+</body>
+</html>

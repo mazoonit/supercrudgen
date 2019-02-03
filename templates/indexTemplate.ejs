@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<title>CRUD</title>
+<link rel="stylesheet" href="/static/style.css">
+<body>
+	<h1 style="text-align:Center; color:#2E6912;"><%=projectName%></h1>
+	<h4 style="color:#2E6912;">Tables</h4>
+	<%for(var i=0;i<rows.length;i++){%>
+		<a href="<%=rows[i].table_name%>" target="_blank"><%=rows[i].table_name%></a>
+		<br>
+	<%}%>
+<script src="/static/frontendlib.js"></script>
+<script>
+</script>
+</body>
+</html>
