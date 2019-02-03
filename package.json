@@ -6,6 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/decryptor007/supercrud"
+  },
   "author": "decryptor007",
   "license": "ISC",
   "dependencies": {
