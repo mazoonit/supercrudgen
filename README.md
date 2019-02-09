@@ -16,3 +16,10 @@ It generates an express application that uses either mysql or mongoDB as a datab
   - Inside static It creates 2 files
     - static/frontendlib.js (which is responsiple mainly for the ajax requests and other js stuff in the views).
     - static/style.css (which contains the style of the views).
+- details for mysql:
+  - It generates a directory for your application.
+	- It creates routes,views,static directories inside the main dir.
+	- It creates a route file that contains all the routes(Insert,Delete,Update,Show all,Show specific row) and 2 views(view for all the rows and view for a specific row) for every table.
+	- It creates an app.js file which is already connected to the routes which the tool created lately.
+	- It creates an db.js file that handle the mysql database connection for you.
+	- It creates a package.json file with all the packages that you need to launch your app
