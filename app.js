@@ -234,6 +234,10 @@ app.post('/createCollection',function(req,res){
 	**/
 	let dirName=req.body.projectName;
 	let dirPath=req.body.path;
+	//CREATING PROJECT DIR IF NOT ALREADY CREATED
+	if (!fs.existsSync(dirPath + '/' + dirName)){
+		fs.mkdirSync(dirPath + '/' + dirName,);
+		fs.chmodSync(dirPath+'/'+dirName, 0777);}
 	//Promises ARRAY
 	//Every promise is returned from a function that creates a collection's files(mongoose model,routes,views)
 	let promises=[];
