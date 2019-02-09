@@ -1,6 +1,6 @@
 # CRUD GENERATOR
-Stop wasting your time writing the same code again and again .-.
-JUST provide the tool with your architecture and database information and It will build your app for you in no time.
+## Stop wasting your time writing the same code again and again .-.
+### JUST provide the tool with your architecture and database information and It will build your app for you in no time.
 # What exactly the tool does ?
 It generates a nodejs(express) application that uses either mysql or mongoDB as a database.
 
