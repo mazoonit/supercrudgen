@@ -203,7 +203,10 @@ app.post('/createtable',function(req,res){
 						console.log(err);					
 						res.send(false); //error in one of the parallel tasks
 					}
-					else{res.send(true);}
+					else{
+						//everything is cool
+						console.log("Done!");						
+						res.send(true);}
 				});
 			}).catch((errors)=>{
 				//IF there's an error with database or writing routes or views
@@ -229,7 +232,6 @@ app.post('/createCollection',function(req,res){
 				,projectName:""
 				}
 	**/
-	console.log(req.body.collections[0].columns);
 	let dirName=req.body.projectName;
 	let dirPath=req.body.path;
 	//Promises ARRAY
@@ -240,8 +242,37 @@ app.post('/createCollection',function(req,res){
 	}
 	Promise.all(promises).then((results)=>{
 		//the files of all the collection created successfully ^
-		console.log(results);
-		res.send(true);
+		//creating static DIR
+		if (!fs.existsSync(dirPath + '/' + dirName+'/static')){
+			fs.mkdirSync(dirPath + '/' + dirName+'/static',);
+			fs.chmodSync(dirPath+'/'+dirName+'/static', 0777);}
+
+		var stack=[];//stack of all static files creating functions
+		var copyJs=function(callback){
+					
+				fs.copyFile(path.join(__dirname,'static','frontendlib.js'),dirPath+'/'+dirName+'/static/frontendlib.js', (err) => {
+					if (err){callback("Copying file error.",null);}
+					else{callback(null,true);}
+					});
+				};
+		stack.push(copyJs);
+		var copyCss=function(callback){
+			fs.copyFile(path.join(__dirname,'static','style.css'),dirPath+'/'+dirName+'/static/style.css', (err) => {
+				if (err){callback("Copying file error.",null);}
+				else{callback(null,true);}
+			});
+			    };
+		stack.push(copyCss);
+		async.parallel(stack,function(err,result){
+			if(err){
+				console.log("Error in creating files.");					
+				res.send(false); //error in one of the parallel tasks
+				}
+				else{
+					//everything is cool
+					console.log("Done!");					
+					res.send(true);}
+				});
 	})
 	.catch((errs)=>{
 		//Error happened while creating the files
