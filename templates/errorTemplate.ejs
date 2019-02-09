@@ -4,6 +4,10 @@
 <style>
 </style>
 <body>
-	<h1 style="text-align:center;color:#f00;">Error</h1>
+	<h1 style="text-align:center;color:#f00;">ERROR</h1>
+	<%if(databaseError==true){%>
+		<h1 style="text-align:center;">DATABASE ERROR!</h1>
+		<h3 style="text-align:center;">Check your db info,db user presmissions and all the other db related stuff!</h3>
+	<%}%>
 </body>
 </html>

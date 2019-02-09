@@ -1,5 +1,5 @@
 {
-  "name": "supercrudgen-bla",
+  "name": "supercrudgen",
   "version": "1.0.0",
   "description": "CRUD GENERATION TOOL",
   "main": "app.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/decryptor007/supercrud"
+    "url": "https://github.com/decryptor007/supercrudgen"
   },
   "author": "decryptor007",
   "license": "ISC",

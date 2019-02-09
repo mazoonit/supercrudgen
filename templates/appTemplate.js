@@ -22,6 +22,9 @@ db.on('error',function(){
 	console.log("error in connecting to the database");
 	});
 
+//DECRYPTORIC TEXT :" REMOVE IT IF YOU WISH NOTHING WILL HAPPEN HOPEFULLY :"
+console.log("Hello there,THIS IS A COOL DECRYPTORIC APP!");
+
 
 
 
@@ -45,7 +48,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //Index page the main page route
 app.get('/',function(req,res){
 	db.query("SELECT table_name FROM information_schema.tables where table_schema='{dbName}';",function(err,rows){
-		if(err){res.render('Error.ejs');}
+		if(err){res.render('Error.ejs',{databaseError:true});}
 		else{res.render('Index.ejs',{rows:rows,projectName:"{projectName}"});}
 
 	});

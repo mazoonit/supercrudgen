@@ -11,9 +11,11 @@ var httpserver=http.createServer(app);
 const mysql=require('mysql');
 const async=require('async');
 const createTable=require(path.join(__dirname,'createTable.js'));
+const createCollection=require(path.join(__dirname,'createCollection.js'));
+let os=require('os');
 
 
-//writing my name on the terminal :"
+//writing my name on the terminal :" YOU SHOULDN'T REMOVE IT, IF YOU DID THE WHOLE UNIVERSE WILL COLLAPSE X_X
 console.log(
 	chalk.red(
 		figlet.textSync("decryptor007")
@@ -36,13 +38,36 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 
-//the only get route for now :"
+//get requests
 app.get('/',function(req,res){
-	res.render("index.ejs");
+	res.render("home.ejs");
 });
+app.get('/sql',function(req,res){
+	res.render("sql.ejs");
 
-//the only post route for now also :"
+});
+app.get('/nosql',function(req,res){
+	res.render("nosql.ejs");
+})
+
+//sql create app route
 app.post('/createtable',function(req,res){
+		/**
+			[0,1,2,3,4,5,6,7]->[id,type,length,default,NULL,primary/unique,auto_increment]
+			Request Architecture
+				JSON Object:{
+					dbHost:"",
+					dbUser:"",
+					dbPassword:"",
+					dbName:"",
+					path:"",
+					projectName:"",
+					tables:[{tableName:"",columns:[[0,1,2,3,4,5,6,7],[],.....]},{},....]
+
+				}
+
+
+		**/
 		//connecting to the user db
 		var db= mysql.createConnection({
 		  host:req.body.dbHost,
@@ -188,6 +213,44 @@ app.post('/createtable',function(req,res){
 		}
 	});
 });
+
+
+
+//mongoose route
+app.post('/createCollection',function(req,res){
+	//dirName+dirPath from the request
+	//the request architecture
+	/**
+		[0,1,2,3,4] -> [name,type,Required,Unique,ref]
+		JSON Object -> {
+				collections:
+					[{columns:[[0,1,2,3,4],[],....],collectionName:""},{},{}...]
+				,path:""
+				,projectName:""
+				}
+	**/
+	console.log(req.body.collections[0].columns);
+	let dirName=req.body.projectName;
+	let dirPath=req.body.path;
+	//Promises ARRAY
+	//Every promise is returned from a function that creates a collection's files(mongoose model,routes,views)
+	let promises=[];
+	for(var i=0;i<req.body.collections.length;i++){
+		promises.push(createCollection.createCollection(req.body.collections[i],dirPath+'/'+dirName));
+	}
+	Promise.all(promises).then((results)=>{
+		//the files of all the collection created successfully ^
+		console.log(results);
+		res.send(true);
+	})
+	.catch((errs)=>{
+		//Error happened while creating the files
+		console.log(errs);
+		res.send(false);
+	});
+	//Simple async styles to deal with files/directories creation^
+});
+
 
 
 

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SUPERCRUDGEN</title>
+<link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
+<style>
+::-ms-selection{color:#FFF;  background-color:#A1D389;}
+::-moz-selection{color:#FFF;  background-color:#A1D389;}
+::-webkit-selection{color:#FFF;	background-color:#A1D389;}
+::selection{color:#FFF; background-color:#A1D389;}
+
+
+
+::-webkit-scrollbar { background:#fff; width: 7px; height: 7px;}
+::-webkit-scrollbar-thumb {-webkit-border-radius: 10px; background-color:#666;}
+::scrollbar { background:#fff; width: 7px; height: 7px;}
+::scrollbar-thumb {-webkit-border-radius: 10px; background-color:#666; border-radius: 10px;}:
+:-moz-scrollbar { background:#fff; width: 7px; height: 7px;}
+::-moz-scrollbar-thumb {-webkit-border-radius: 10px; background-color:#666; border-radius: 10px;}
+
+
+
+body{direction:ltr; font-family: 'Rajdhani';margin:10px;}
+
+
+
+a{font-size:18px;font-family:;color:#2E6912;transition-duration:1s;transition-property:all;-webkit-transition-duration:1s;-webkit-transition-property:all;text-decoration:none;}
+a:hover{color:#A1D389;text-decoration:none;}
+
+
+input {
+  padding: 16px 20px;
+  margin:5px;
+  width:20%;
+  border:none;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+  transition:0.5s;
+}
+input:focus{
+	  outline:none;
+	  background-color:#ccc;
+}
+select {
+  padding: 16px 20px;
+  margin:5px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+  cursor:pointer;
+  transition:0.5s;
+}
+select:focus{
+	  outline:none;
+	  background-color:#ccc;
+}
+.button{
+cursor:pointer;
+background-color: #2E6912;
+border: none;
+color: white;
+padding: 16px 32px;
+border-radius:4px;
+font-size:20px;
+margin:5px;
+transition:1s;
+}
+.button:focus{
+outline:none;
+}
+.button:hover{
+background-color:#2E6655;
+}
+.updateButton{
+background-color:#2E6912;
+}
+.updateButton:hover{
+background-color:#2E6655;
+}
+.deleteButton{background-color:#F00;}
+.updateDiv{display:none;width:100%:height:100%;z-index:10;}
+
+
+
+
+</style>
+</head>
+<body>
+<div style="text-align:Center;cursor:pointer;">
+<h1 style="color:#2E6912;display:inline-block;">CRUD  </h1><h1 style="color:#f00;display:inline-block;">GENERATOR</h1>
+<a href="https://www.github.com/decryptor007" target="_blank"><h5>@decryptor007</h5></a>
+</div>
+<form style="text-align:center;">
+	<input id="projectName" type="text" placeholder="projectName" style="display:inline-block;"/>
+	<input id="path" type="text" placeholder="Path" style="display:inline-block;"/>
+	<div id="collections">
+	</div>
+	<button onClick="return addCollection();" class="button">Add Collection</button>
+	<button onClick="return add();" class="button" style="background:#F00;">CREATE</button>
+</form>
+
+
+<!--collection template-->
+<div id="collectionTemplate" style="display:none;">
+	<input id="collectionName_0" type="text" maxlength="64" placeholder="Collection name"/>
+	<br>
+	<div id="columns_0">
+	</div>
+	<button onClick="return addColumn(event);" id="collectionName_0" class="button">Add Column</button>
+
+</div>
+
+
+<!--column template-->
+<div style="display:none;" id="columntemplate">
+		<tr>
+			<td>
+			    <!-- column name -->
+			    <input id="field_0_1" type="text" name="field_0_1" maxlength="64"size="10"placeholder="Column Name">
+			</td>
+			<td>
+			    <!-- column type -->
+			    <select name="field_0_2" id="field_0_2" onClick="select(event)">
+				<option>String</option>
+				<option>Date</option>
+				<option>Number</option>
+				<option>Boolean</option>
+				<option>ObjectId</option>
+			   </select>
+			</td>
+
+
+			<td>
+			    <!-- column NULL -->
+			    <select name="field_0_3" id="field_0_3">
+				    <option value="Required">
+					Required
+				    </option>
+				    <option value="Not Required">Not Required</option>
+			    </select>
+
+			</td>
+			<td>
+			    <!-- column NULL -->
+			    <select name="field_0_4" id="field_0_4">
+				    <option value="Unique">
+					Unique
+				    </option>
+				    <option value="Not Unique">Not Unique</option>
+			    </select>
+
+			</td>
+			
+
+			<td>
+				<input id="field_0_5" type="text" maxlength="64" size="10"placeholder="ref" style="display:none;">
+			</td>
+		</tr>
+</div>
+
+
+<script>
+//ajax shortcut
+function ajaxRequest(path,requestType,contentType,request,callback){
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			callback(this.responseText);
+			};
+	}
+	xhr.open(requestType,path, true);
+	xhr.setRequestHeader("Content-type",contentType);
+	if(contentType=="application/json"){xhr.send(JSON.stringify(request));}
+	else{xhr.send(request);}
+	}
+
+
+</script>
+<script>
+var count=[];
+var collectionCount=1;
+
+
+function add(){
+	var path=document.getElementById("path").value;
+	var projectName=document.getElementById("projectName").value;
+	var obj={"collections":[],
+		 "projectName":projectName,
+ 		 "path":path};
+	for(var k=1;k<collectionCount;k++){
+		var collectionName=document.getElementById("collectionName_"+k).value;
+		var jsonObject={"columns":[],"collectionName":collectionName};
+		var tempArr=[];
+		for(var i=1;i<count[k];i++){
+			for(var j=1;j<=5;j++){
+				tempArr.push(document.getElementById("field_"+i+"_"+k+"_"+j).value);
+			}
+			jsonObject.columns.push(tempArr);
+			tempArr=[];
+		}
+		obj.collections.push(jsonObject);
+	}
+	console.log(obj);
+	ajaxRequest("/createCollection","POST","application/json",obj,function(res){
+		if(res=="true"){alert("Done");}
+		else{alert("Something went wrong check the terminal!");}
+	});
+	return false;
+}
+
+
+
+function addColumn(e){
+
+	var collectionID=e.target.id.slice(15,e.target.id.length);
+	var div=document.getElementById("columns_"+collectionID);
+	console.log(collectionID);
+	var columnTemplate=document.getElementById("columntemplate");
+	var columnTemplate=columnTemplate.cloneNode(true);
+	columnTemplate.style.display="block";
+	columnTemplate.id="column_"+count[collectionID]+'_'+collectionID;
+	columnTemplate.childNodes[3].id="field_"+count[collectionID]+'_'+collectionID+'_1';
+	columnTemplate.childNodes[7].id="field_"+count[collectionID]+'_'+collectionID+'_2';
+	columnTemplate.childNodes[11].id="field_"+count[collectionID]+'_'+collectionID+'_3';
+	columnTemplate.childNodes[15].id="field_"+count[collectionID]+'_'+collectionID+'_4';
+	columnTemplate.childNodes[17].id="field_"+count[collectionID]+'_'+collectionID+'_5';
+	//console.log(columnTemplate.childNodes);
+	div.appendChild(columnTemplate);
+	/**
+	var temp=columnTemplate.innerHTML;
+	temp=temp.replace(/field_0_/g,'field_'+count[collectionID]+'_'+collectionID+'_');
+	//temp=temp.replace(/div_0_0/g,'div_'+count[collectionID]+'_'+collectionID);
+	div.innerHTML=div.innerHTML+"<br>"+temp;
+	**/
+	count[collectionID]+=1;
+	return false;}
+
+
+function addCollection(){
+		var div=document.getElementById("collections");
+		var collectionTemplate=document.getElementById("collectionTemplate");
+		collectionTemplate=collectionTemplate.cloneNode(true);
+		collectionTemplate.style.display="block";
+		collectionTemplate.id='collection_'+collectionCount;
+		collectionTemplate.childNodes[1].id='collectionName_'+collectionCount;
+		collectionTemplate.childNodes[5].id='columns_'+collectionCount;
+		collectionTemplate.childNodes[7].id='collectionName_'+collectionCount;
+		div.appendChild(collectionTemplate);
+
+		/**
+		var temp=collectionTemplate.innerHTML;
+		temp=temp.replace(/collectionName_0/g,'collectionName_'+collectionCount);
+		temp=temp.replace(/columns_0/g,'columns_'+collectionCount);
+		div.innerHTML=div.innerHTML+"<br>"+temp;
+		**/
+		count[collectionCount]=1;
+		collectionCount+=1;
+		return false;
+	}
+function select(e){
+	var value=e.path[0].value;
+	var id=e.path[0].id.slice(0,e.path[0].id.length-1);
+	var ref=document.getElementById(id+'5');
+	if(e.path[0].value=="ObjectId"){
+		if(ref.style.display=="none"){ref.style.display="inline-block";}
+		else{ref.style.display="none";}
+	}
+	else{
+		ref.style.display="none";
+	}
+}
+</script>
+</body>
+</html>

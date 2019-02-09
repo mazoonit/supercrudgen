@@ -9,7 +9,7 @@ router.get('/',function(req,res){
 	var q="SELECT * FROM {tableName}";
 	var columnsName={columnsName};
 	db.query(q,function(err,rows){
-		if(err){res.render("Error.ejs");}
+		if(err){res.render('Error.ejs',{databaseError:true});}
 		else{
 		res.render("{tableName}s.ejs",{columnsName:columnsName,rows:rows});
 		}
@@ -20,7 +20,7 @@ router.get('/:id',function(req,res){
 	var q="SELECT * FROM {tableName} WHERE id= ?";
 	var columnsName={columnsName};
 	db.query(q,[req.params.id],function(err,rows){
-		if(err){res.render("Error.ejs");}
+		if(err){res.render('Error.ejs',{databaseError:true});}
 		else{
 			if(rows.length<=0){res.render("Error.ejs");}
 			else{
