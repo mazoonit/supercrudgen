@@ -1,6 +1,9 @@
 # CRUD GENERATOR AKA APP BUILDER
 ## Stop wasting your time writing the same code again and again .-.
 ### JUST provide the tool with your architecture and database information and It will build your app for you in no time.
+- The product(without writing any code you'll be able to get your CRUD application up and running).
+  - ![alt text](https://imgur.com/W7dweEy.png)
+  - ![alt text](https://imgur.com/FVvZNw2.png)
 # How to install it ?
 - Prerequisite:
   - nodejs -> https://nodejs.org/en/download/package-manager/
