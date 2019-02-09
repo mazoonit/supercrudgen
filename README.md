@@ -58,5 +58,6 @@ It generates a nodejs(express) application that uses either mysql or mongoDB as 
   - Inside the main directory It creates app.js file which is already connected to the routes which the tool created lately.
   - Inside the main directory It creates db.js file which handles the mysql database connection for you.
   - Inside the main directory It creates package.json file with all the packages that you need to launch your app.
-  
-  
+### NOTES
+- In case of using mysql option after creating your app make sure to install the dependencies..Just write inside the directory of the project on the terminal ``` sudo npm install ``` to install the packages (express,mysql,ejs) and run your app after this.
+- It's only mysql that creates the full app in this version,the mongoose option only creates the (routes,models,views) without app.js,package.json files so you'll have to write them on your own (It's very easy ^).
