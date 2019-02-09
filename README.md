@@ -10,11 +10,14 @@
 ### Don't forget "-g" or "sudo" That's crucial.
 # How to use it ?
 - After installing just write 
-  - ```sudo supercrudgen``` (You'll find decryptor007 in RED on your terminal screen :")
-  ![alt text](https://i.imgur.com/uI4Blw0.png)
+  - ```sudo supercrudgen``` (You'll find decryptor007 in RED on your terminal screen :"D).
+    - ![alt text](https://i.imgur.com/uI4Blw0.png)
 - It will run on port 7070
 - Go to the browser and open it ```localhost:7070```
-- From here It's very intuitive just use the UI 
+- From here It's very intuitive just use the UI
+  - ![alt text](https://imgur.com/sIYKSo7)
+  - ![alt text](https://imgur.com/h8edwlW)
+  - ![alt text](https://imgur.com/ziQeTFS)
 
 # What exactly the tool does ?
 It generates a nodejs(express) application that uses either mysql or mongoDB as a database.
