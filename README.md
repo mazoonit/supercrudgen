@@ -1,4 +1,4 @@
-# CRUD GENERATOR
+# CRUD GENERATOR AKA APP BUILDER
 ## Stop wasting your time writing the same code again and again .-.
 ### JUST provide the tool with your architecture and database information and It will build your app for you in no time.
 # How to install it ?
