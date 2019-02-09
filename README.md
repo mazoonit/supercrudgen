@@ -4,7 +4,10 @@
 #### (without writing any code you'll be able to get your CRUD application up and running).
 - Your crud app will look like this.
   - ![alt text](https://imgur.com/W7dweEy.png)
-  - ![alt text](https://imgur.com/FVvZNw2.png)
+    - ![alt text](https://imgur.com/O1yIQVN.png)
+    - ![alt text](https://imgur.com/o5KWt41.png)
+    - ![alt text](https://imgur.com/XwrUNUw.png)
+
 # How to install it ?
 - Prerequisite:
   - nodejs -> https://nodejs.org/en/download/package-manager/
