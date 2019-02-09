@@ -6,9 +6,9 @@
   - ![alt text](https://imgur.com/W7dweEy.png)
     Home Screen
   - ![alt text](https://imgur.com/O1yIQVN.png)
-  - Table Screen(AJAX requests to update,insert,delete)
+    Table Screen(AJAX requests to update,insert,delete)
   - ![alt text](https://imgur.com/o5KWt41.png)
-  - Row Screen(AJAX requests to update and delete)
+    Row Screen(AJAX requests to update and delete)
   - ![alt text](https://imgur.com/XwrUNUw.png)
 
 # How to install it ?
