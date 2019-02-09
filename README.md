@@ -9,5 +9,5 @@ details for mongoDB:
 - Inside routes it creates a routes file that contains all the routes for the models (Insert,Delete,Update,Show all,show specific document).
 - Inside views it creates 2 views for every model (one view for all the documents in the collection,and another for specific document)
 - Inside static It creates 2 files
- - frontendlib.js which is responsiple mainly for the ajax requests in the views.
- - style.css which contains the style of the views.
+  1. frontendlib.js which is responsiple mainly for the ajax requests in the views.
+  2. style.css which contains the style of the views.
