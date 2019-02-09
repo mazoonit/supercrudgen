@@ -1,8 +1,8 @@
-#CRUD GENERATOR
+# CRUD GENERATOR
 	Stop wasting your time writing the same code again and again .-.
 	JUST provide the tool with your architecture and database information and It will build your app for you in no time.
-#What exactly the tool does ?
-	It generates an express application that uses either mysql or mongoDB as a database.
+# What exactly the tool does ?
+It generates an express application that uses either mysql or mongoDB as a database.
   details for mongoDB:
     1-It creates models,routes,views,static directories inside your application directory.
     2-Inside models it creates a model.js file for every collection that contains mongoose schema and exports mongoose model.
