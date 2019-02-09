@@ -22,7 +22,7 @@
 # What exactly the tool does ?
 It generates a nodejs(express) application that uses either mysql or mongoDB as a database.
 
-- details for mongoDB:
+- Details for mongoDB:
   - It creates models,routes,views,static directories inside your application directory.
   - Inside models It creates a model.js file for every collection that contains mongoose schema and exports mongoose model.
     - models/modelName.js
@@ -34,7 +34,7 @@ It generates a nodejs(express) application that uses either mysql or mongoDB as 
   - Inside static It creates 2 files
     - static/frontendlib.js (which is responsiple mainly for the ajax requests and other js stuff in the views).
     - static/style.css (which contains the style of the views).
-- details for mysql:
+- Details for mysql:
   - It generates a directory for your application.
   - It creates routes,views,static directories inside the main dir.
   - It creates a route file that contains all the routes
