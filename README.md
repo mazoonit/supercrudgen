@@ -4,7 +4,7 @@
 #### (without writing any code you'll be able to get your CRUD application up and running).
 - Your crud app will look like this.
   - ![alt text](https://imgur.com/W7dweEy.png)
-  - Home Screen
+    Home Screen
   - ![alt text](https://imgur.com/O1yIQVN.png)
   - Table Screen(AJAX requests to update,insert,delete)
   - ![alt text](https://imgur.com/o5KWt41.png)
