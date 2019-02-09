@@ -32,8 +32,9 @@ It generates a nodejs(express) application that uses either mysql or mongoDB as 
   - Inside the main directory It creates package.json file with all the packages that you need to launch your app.
 # How to install it ?
 - Prerequisite:
-  -nodejs -> https://nodejs.org/en/download/package-manager/
-  -npm -> usually It gets installed with nodejs if not google it GEEK :"D (It's a peace of cake don't worry ! ^).
+  - nodejs -> https://nodejs.org/en/download/package-manager/
+  - npm -> usually It gets installed with nodejs if not google it GEEK :"D (It's a peace of cake don't worry ! ^).
 - Install the tool
-  - ```sudo npm install supercrudgen -g```
+  - ```sudo npm install supercrudgen -g``` 
+  
   
