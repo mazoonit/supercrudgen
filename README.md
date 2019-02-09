@@ -36,6 +36,6 @@ It generates a nodejs(express) application that uses either mysql or mongoDB as 
   - npm -> usually It gets installed with nodejs if not google it GEEK :"D (It's a peace of cake don't worry ! ^).
 - Install the tool
   - ```sudo npm install supercrudgen -g```
-# Don't forget "-g" or "sudo" That's crucial.
+### Don't forget "-g" or "sudo" That's crucial.
   
   
