@@ -2,7 +2,7 @@
 Stop wasting your time writing the same code again and again .-.
 JUST provide the tool with your architecture and database information and It will build your app for you in no time.
 # What exactly the tool does ?
-It generates an express application that uses either mysql or mongoDB as a database.
+It generates a nodejs(express) application that uses either mysql or mongoDB as a database.
 
 - details for mongoDB:
   - It creates models,routes,views,static directories inside your application directory.
@@ -30,4 +30,10 @@ It generates an express application that uses either mysql or mongoDB as a datab
   - Inside the main directory It creates app.js file which is already connected to the routes which the tool created lately.
   - Inside the main directory It creates db.js file which handles the mysql database connection for you.
   - Inside the main directory It creates package.json file with all the packages that you need to launch your app.
+# How to install it ?
+- Prerequisite:
+  -nodejs -> https://nodejs.org/en/download/package-manager/
+  -npm -> usually It gets installed with nodejs if not google it GEEK :"D (It's a peace of cake don't worry ! ^).
+- Install the tool
+  - ```sudo npm install supercrudgen -g```
   
